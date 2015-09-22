@@ -22,7 +22,7 @@ var buildMethods = {
   },
   fonts:function() {
     return gulp.src('./lib/fonts/**/*')
-      .pipe(gulp.dest('./dist/fonts'))
+      .pipe(gulp.dest('./dist/font'))
       .pipe(connect.reload());
   },
   compass:function() {
