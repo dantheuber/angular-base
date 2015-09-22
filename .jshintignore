@@ -1,0 +1,7 @@
+node_modules
+coverage
+jspm_packages
+dist
+config.js
+ui-assets
+obsolete
