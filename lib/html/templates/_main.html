@@ -7,7 +7,7 @@
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
   <link rel="stylesheet" href="/css/style.css" media="screen" title="no title" charset="utf-8">
 </head>
 <body>
@@ -40,7 +40,7 @@
 
       </div>
     </div>
-    <div class="parallax"><img src="/images/background1.jpg" alt="Unsplashed background img 1"></div>
+    <div class="parallax"><img src="/images/background1.jpg" alt="Unsplashed background img 1" style="display: block; transform: translate3d(-50%, 232px, 0px);"></div>
   </div>
 
 
@@ -89,7 +89,7 @@
         </div>
       </div>
     </div>
-    <div class="parallax"><img src="/images/background2.jpg" alt="Unsplashed background img 2"></div>
+    <div class="parallax"><img src="/images/background2.jpg" alt="Unsplashed background img 2" style="display: block; transform: translate3d(-50%, 232px, 0px);"></div>
   </div>
 
   <div class="container">
@@ -115,7 +115,7 @@
         </div>
       </div>
     </div>
-    <div class="parallax"><img src="/images/background3.jpg" alt="Unsplashed background img 3"></div>
+    <div class="parallax"><img src="/images/background3.jpg" alt="Unsplashed background img 3" style="display: block; transform: translate3d(-50%, 232px, 0px);"></div>
   </div>
 
   <footer class="page-footer teal">
@@ -159,10 +159,14 @@
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
   <script type="text/javascript">
-    $(function(){
-      $('.button-collapse').sideNav();
-      $('.parallax').parallax();
-    }); // end of document ready
+    (function($){
+      $(function(){
+
+        $('.button-collapse').sideNav();
+        $('.parallax').parallax();
+
+      }); // end of document ready
+    })(jQuery); // end of jQuery name space
   </script>
 
   </body>
