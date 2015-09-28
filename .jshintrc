@@ -17,5 +17,14 @@
   "undef": true,
   "unused": true,
   "browser": true,
-  "globals": { "angular": false, "document": false }
+  "globals": {
+    "angular": false,
+    "document": false,
+    "describe"   : false,
+    "it"         : false,
+    "before"     : false,
+    "beforeEach" : false,
+    "after"      : false,
+    "afterEach"  : false
+  }
 }
