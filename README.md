@@ -8,7 +8,7 @@ This project uses `gulp` and `jspm`, as well as `compass` to make your developme
 gem install compass
 
 #Install global commands used by gulp
-sudo npm install -g gulp jspm jspm-bower-endpoint
+sudo npm install -g gulp mocha istanbul jspm jspm-bower-endpoint
 
 #Setup jspm bower endpoint
 jspm registry create bower jspm-bower-endpoint
@@ -27,3 +27,6 @@ gulp
 #compile dist and host it on port 5003 while watching for file updates
 gulp host
 ```
+
+###TODO:
+- Setup test config and npm commands

@@ -3,11 +3,15 @@
 var util = require('util'),
     fs = require('fs'),
     gulp = require('gulp'),
+    rimraf = require('rimraf'),
+    revision = require('git-rev'),
+    mocha = require('gulp-mocha'),
     shell = require('gulp-shell'),
+    jshint = require('gulp-jshint'),
     connect = require('gulp-connect'),
     compass = require('gulp-compass'),
-    rimraf = require('rimraf'),
-    revision = require('git-rev');
+    istanbul = require('gulp-istanbul'),
+    stylish = require('jshint-stylish');
 
 var buildMethods = {
   html:function() {
@@ -73,6 +77,21 @@ var buildMethods = {
       var versionInfo = util.format('%s || %s', require('./package.json').version, rev);
       fs.writeFile('dist/version.html', versionInfo, cb);
     });
+  },
+  coverage:function() {
+    return gulp.src(['lib/**/*.js'])
+      // Covering files
+      .pipe(istanbul())
+      // Force `require` to return covered files
+      .pipe(istanbul.hookRequire());
+  },
+  test:function() {
+    return gulp.src(['test/**/*.js'])
+      .pipe(jshint())
+      .pipe(jshint.reporter(stylish))
+      .pipe(mocha())
+      .pipe(istanbul.writeReports())
+      .pipe(istanbul.enforceThresholds({ thresholds: { global: 100 } }));
   }
 };
 // livereload server
@@ -99,6 +118,13 @@ gulp.task('compass-watch', buildMethods.compass);
 
 gulp.task('jspm-bundle-watch', buildMethods.jspmBundle);
 /* End watch tasks*/
+
+/* Test methods */
+// run coverage tests
+gulp.task('coverage', buildMethods.coverage);
+
+gulp.task('test', ['coverage'], buildMethods.test);
+/* end test methods */
 
 /* Build methods*/
 // copy HTML changes
@@ -136,6 +162,7 @@ gulp.task('watch', ['images', 'fonts', 'compass', 'jspm-bundle', 'version'], fun
   gulp.watch('./lib/scss/**/*.scss', ['compass-watch']);
   gulp.watch(['index.js', './lib/js/**/*.js'], ['jspm-bundle-watch']);
 });
+
 
 // build dist
 gulp.task('default', ['images', 'fonts', 'compass', 'jspm-bundle', 'version'],function(){
