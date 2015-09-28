@@ -26,6 +26,9 @@ gulp
 
 #compile dist and host it on port 5003 while watching for file updates
 gulp host
+
+#run tests and generate coverage report
+gulp test
 ```
 
 ###TODO:
