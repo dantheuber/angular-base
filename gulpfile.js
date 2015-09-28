@@ -3,11 +3,18 @@
 var util = require('util'),
     fs = require('fs'),
     gulp = require('gulp'),
+    rimraf = require('rimraf'),
+    revision = require('git-rev'),
+    mocha = require('gulp-mocha'),
     shell = require('gulp-shell'),
+    jshint = require('gulp-jshint'),
     connect = require('gulp-connect'),
     compass = require('gulp-compass'),
-    rimraf = require('rimraf'),
-    revision = require('git-rev');
+    istanbul = require('gulp-istanbul'),
+    stylish = require('jshint-stylish'),
+    istanbulReport = require('gulp-istanbul-report');
+
+var coverageFile = './coverage/coverage-final.json';
 
 var buildMethods = {
   html:function() {
@@ -73,6 +80,31 @@ var buildMethods = {
       var versionInfo = util.format('%s || %s', require('./package.json').version, rev);
       fs.writeFile('dist/version.html', versionInfo, cb);
     });
+  },
+  pretest:function() {
+    return gulp.src('./lib/js/**/*.js')
+      // Right there
+      .pipe(jshint())
+      .pipe(jshint.reporter(stylish))
+      .pipe(istanbul({includeUntested: true}))
+      .pipe(istanbul.hookRequire());
+  },
+  test:function () {
+    gulp.src('./test/**/*.js')
+      .pipe(jshint())
+      .pipe(jshint.reporter(stylish))
+      .pipe(mocha())
+      .pipe(istanbul.writeReports({
+        dir: './coverage',
+        reporters: [ 'lcov', 'text-summary', 'text', 'json' ],
+        reportOpts: {
+          lcov: { dir: './coverage', file: './coverage/lcov.info'},
+          json: { dir: './coverage', file: './coverage.json'}
+        }
+      }));
+  },
+  cleanCoverage:function(cb){
+    rimraf('./coverage', cb);
   }
 };
 // livereload server
@@ -99,6 +131,17 @@ gulp.task('compass-watch', buildMethods.compass);
 
 gulp.task('jspm-bundle-watch', buildMethods.jspmBundle);
 /* End watch tasks*/
+
+/* Test methods */
+// clean coverage folder
+gulp.task('cleanCoverage', buildMethods.cleanCoverage);
+
+// pretest
+gulp.task('pre-test', buildMethods.pretest);
+
+// run tests
+gulp.task('test', ['cleanCoverage','pre-test'], buildMethods.test);
+/* end test methods */
 
 /* Build methods*/
 // copy HTML changes
@@ -136,6 +179,7 @@ gulp.task('watch', ['images', 'fonts', 'compass', 'jspm-bundle', 'version'], fun
   gulp.watch('./lib/scss/**/*.scss', ['compass-watch']);
   gulp.watch(['index.js', './lib/js/**/*.js'], ['jspm-bundle-watch']);
 });
+
 
 // build dist
 gulp.task('default', ['images', 'fonts', 'compass', 'jspm-bundle', 'version'],function(){

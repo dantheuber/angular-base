@@ -37,7 +37,7 @@ describe('ConfigService', function() {
 
   it('returns promise on error', function() {
     $http.get().success().error.getCall(0).callArgWith(0,{});
-    expect($q.defer().reject).to.have.been.called;
+    expect($q.defer().reject).to.have.been.called; //jshint ignore:line
   });
 
 });
