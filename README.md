@@ -29,4 +29,4 @@ gulp host
 ```
 
 ###TODO:
-- Setup test config and npm commands
+- 100% coverage
