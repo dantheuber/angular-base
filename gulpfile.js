@@ -81,34 +81,27 @@ var buildMethods = {
       fs.writeFile('dist/version.html', versionInfo, cb);
     });
   },
-  test:function() {
+  pretest:function() {
     return gulp.src('./lib/js/**/*.js')
       // Right there
+      .pipe(jshint())
+      .pipe(jshint.reporter(stylish))
       .pipe(istanbul({includeUntested: true}))
-      .on('finish', function () {
-        gulp.src('./test/**/*.js')
-          .pipe(mocha())
-          .pipe(istanbul.writeReports({
-            dir: './coverage',
-            reporters: [ 'lcov', 'text-summary', 'text', 'json' ],
-            reportOpts: {
-              lcov: { dir: './coverage', file: './coverage/lcov.info'},
-              json: { dir: './coverage', file: './coverage/coverage.json'} 
-            }
-          }));
-      });
-    // return gulp.src(['test/**/*.js'])
-    //   .pipe(jshint())
-    //   .pipe(jshint.reporter(stylish))
-    //   .pipe(mocha())
-    //   .pipe(istanbul())
-    //   // Force `require` to return covered files
-    //   .pipe(istanbul.hookRequire())
-    //   .pipe(istanbul.writeReports())
-    //   .pipe(istanbul.enforceThresholds({ thresholds: { global: 100 } }))
-    //   .on('finish', function() {
-    //     process.exit(0);
-    //   });
+      .pipe(istanbul.hookRequire());
+  },
+  test:function () {
+    gulp.src('./test/**/*.js')
+      .pipe(jshint())
+      .pipe(jshint.reporter(stylish))
+      .pipe(mocha())
+      .pipe(istanbul.writeReports({
+        dir: './coverage',
+        reporters: [ 'lcov', 'text-summary', 'text', 'json' ],
+        reportOpts: {
+          lcov: { dir: './coverage', file: './coverage/lcov.info'},
+          json: { dir: './coverage', file: './coverage.json'}
+        }
+      }));
   },
   cleanCoverage:function(cb){
     rimraf('./coverage', cb);
@@ -140,9 +133,14 @@ gulp.task('jspm-bundle-watch', buildMethods.jspmBundle);
 /* End watch tasks*/
 
 /* Test methods */
+// clean coverage folder
 gulp.task('cleanCoverage', buildMethods.cleanCoverage);
 
-gulp.task('test', ['cleanCoverage'], buildMethods.test);
+// pretest
+gulp.task('pre-test', buildMethods.pretest);
+
+// run tests
+gulp.task('test', ['cleanCoverage','pre-test'], buildMethods.test);
 /* end test methods */
 
 /* Build methods*/
