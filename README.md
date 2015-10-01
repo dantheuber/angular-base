@@ -19,16 +19,16 @@ npm install
 
 
 ##Start Working
-The gulp file can be modified *and is in need of updating* to fit your projects needs, here are some of the useful commands:
+Various `gulp` tasks are pre-configured, here are some of the useful commands:
 ```shell
-#build dist project
-gulp
-
 #compile dist and host it on port 5003 while watching for file updates
 gulp host
 
 #run tests and generate coverage report
 gulp test
+
+#compile minified distribution package
+gulp package
 ```
 
 ###TODO:

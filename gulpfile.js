@@ -4,10 +4,12 @@ var util = require('util'),
     fs = require('fs'),
     gulp = require('gulp'),
     rimraf = require('rimraf'),
+    bower = require('gulp-bower'),
     revision = require('git-rev'),
     mocha = require('gulp-mocha'),
     shell = require('gulp-shell'),
     jshint = require('gulp-jshint'),
+    notify = require('gulp-notify'),
     connect = require('gulp-connect'),
     compass = require('gulp-compass'),
     istanbul = require('gulp-istanbul'),
@@ -96,12 +98,13 @@ var buildMethods = {
       .pipe(mocha())
       .pipe(istanbul.writeReports({
         dir: './coverage',
-        reporters: [ 'lcov', 'text-summary', 'text', 'json' ],
+        reporters: [ 'lcov', 'text-summary', 'json' ],
         reportOpts: {
           lcov: { dir: './coverage', file: './coverage/lcov.info'},
           json: { dir: './coverage', file: './coverage.json'}
         }
       }));
+
   },
   cleanCoverage:function(cb){
     rimraf('./coverage', cb);
@@ -111,7 +114,7 @@ var buildMethods = {
 gulp.task('connect', function() {
   return connect.server({
     root: 'dist',
-    livereload: false,
+    livereload: true,
     port: 5003
   });
 });
@@ -173,11 +176,21 @@ gulp.task('version', ['html'], buildMethods.version);
 
 // `gulp watch` to develop a remotely-hosted build
 gulp.task('watch', ['images', 'fonts', 'compass', 'jspm-bundle', 'version'], function() {
-  gulp.watch('./lib/html/**/*', ['html-watch']);
-  gulp.watch('./lib/images/**/*', ['images-watch']);
-  gulp.watch('./lib/fonts/**/*', ['fonts-watch']);
-  gulp.watch('./lib/scss/**/*.scss', ['compass-watch']);
-  gulp.watch(['index.js', './lib/js/**/*.js'], ['jspm-bundle-watch']);
+  gulp.watch('./lib/html/**/*', ['html-watch'], function() {
+    notify('Bundled HTML!');
+  });
+  gulp.watch('./lib/images/**/*', ['images-watch'], function() {
+    notify('Bundled Images!');
+  });
+  gulp.watch('./lib/fonts/**/*', ['fonts-watch'], function() {
+    notify('Bundled Fonts!');
+  });
+  gulp.watch('./lib/scss/**/*.scss', ['compass-watch'], function() {
+    notify('Bundled .scss!');
+  });
+  gulp.watch(['index.js', './lib/js/**/*.js'], ['jspm-bundle-watch'], function() {
+    notify('')
+  });
 });
 
 

@@ -53,6 +53,7 @@
     "node-static": "^0.7.6",
     "node-uuid": "^1.4.3",
     "open": "0.0.5",
+    "proxyquire": "^1.7.2",
     "sinon": "^1.17.0",
     "sinon-chai": "^2.8.0",
     "xunit-file": "0.0.6"
@@ -63,10 +64,11 @@
     },
     "dependencies": {
       "angular": "npm:angular@^1.4.1",
-      "angular-material": "bower:angular-material@^0.11.1",
+      "angular-material": "github:angular/bower-material@^0.11.1",
       "angular-query-string": "bower:angular-query-string@^1.0.1",
       "angular-route": "npm:angular-route@^1.4.1",
       "angular-sanitize": "npm:angular-sanitize@^1.4.1",
+      "clean-css": "npm:clean-css@^3.4.5",
       "json": "github:systemjs/plugin-json@^0.1.0",
       "ngSmoothScroll": "github:d-oliveros/ngSmoothScroll@^1.7.1"
     },

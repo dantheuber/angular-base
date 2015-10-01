@@ -16,6 +16,7 @@ describe('ConfigService', function() {
         reject: sinon.spy()
       })
     };
+
     $http = {
       get: sinon.stub().returns({
         success: sinon.stub().returns({
@@ -23,6 +24,7 @@ describe('ConfigService', function() {
         })
       })
     };
+
     sut = new Sut($http, $q);
   });
 
