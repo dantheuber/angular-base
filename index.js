@@ -8,9 +8,9 @@ require('angular-sanitize');
 
 var app = require('angular').module('baseAngularApp', ['ngRoute', 'ngMaterial', 'angular-query-string', 'ngSanitize']);
 
-require('./lib/js/init')(app);
-require('./lib/js/routes')(app);
-require('./lib/js/controllers/index')(app);
-require('./lib/js/directives/index')(app);
-require('./lib/js/filters/index')(app);
-require('./lib/js/services/index')(app);
+require('./lib/js/init')();
+require('./lib/js/routes')();
+require('./lib/js/controllers/index')();
+require('./lib/js/directives/index')();
+require('./lib/js/filters/index')();
+require('./lib/js/services/index')();
