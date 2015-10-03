@@ -13,7 +13,8 @@ describe('ConfigService', function() {
     $q = {
       defer: sinon.stub().returns({
         resolve: sinon.spy(),
-        reject: sinon.spy()
+        reject: sinon.spy(),
+        promise: sinon.spy()
       })
     };
 
@@ -29,7 +30,7 @@ describe('ConfigService', function() {
   });
 
   it('calls api for config', function() {
-    expect($http.get).to.have.been.calledWith('someapiurl');
+    expect($http.get).to.have.been.calledWith('/someapiurl');
   });
 
   it('returns promise on success', function() {
@@ -42,4 +43,10 @@ describe('ConfigService', function() {
     expect($q.defer().reject).to.have.been.called; //jshint ignore:line
   });
 
+  describe('this.get()', function() {
+    it('returns a promise', function() {
+      var test = sut.get();
+      expect(test).to.deep.equal($q.defer().promise);
+    });
+  });
 });
