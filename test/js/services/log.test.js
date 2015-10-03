@@ -29,7 +29,7 @@ describe('LogService', function() {
         'merge': sinon.spy()
       },
       'packageJson': {
-        'name': 'crm-case-management-ui',
+        'name': 'some-app',
         'version': '0.0.0'
       }
     };
