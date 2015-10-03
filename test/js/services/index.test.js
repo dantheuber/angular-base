@@ -7,10 +7,10 @@ var expect = chai.expect;
 var sinon = require('sinon');
 chai.use(require('sinon-chai'));
 var proxyquire = require('proxyquire').noCallThru();
-var sutPath = '../../../lib/js/controllers/';
+var sutPath = '../../../lib/js/services/';
 
-describe('The controllers index', function() {
-  var filenames, ngController, stubs;
+describe('The services index', function() {
+  var filenames, ngService, stubs;
 
   beforeEach(function() {
     filenames = glob
@@ -22,11 +22,11 @@ describe('The controllers index', function() {
         return path.basename(filename, '.js');
       });
 
-    ngController = sinon.spy();
+    ngService = sinon.spy();
     stubs = {
       'angular': {
         'module': sinon.stub().returns({
-          'controller': ngController
+          'service': ngService
         })
       }
     };
@@ -38,10 +38,10 @@ describe('The controllers index', function() {
     proxyquire(sutPath, stubs)();
   });
 
-  it('imports every controller into baseAngularApp', function() {
+  it('imports every service into exampleApp', function() {
     filenames.forEach(function(filename) {
-      var normalizedFileName = filename[0].toUpperCase() + filename.slice(1);
-      expect(ngController).to.have.been.calledWith(normalizedFileName + 'Controller', filename);
+      var Filename = filename[0].toUpperCase() + filename.slice(1);
+      expect(ngService).to.have.been.calledWith(Filename + 'Service', filename);
     });
   });
 });
