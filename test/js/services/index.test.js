@@ -38,7 +38,7 @@ describe('The services index', function() {
     proxyquire(sutPath, stubs)();
   });
 
-  it('imports every service into exampleApp', function() {
+  it('imports every service into the app', function() {
     filenames.forEach(function(filename) {
       var Filename = filename[0].toUpperCase() + filename.slice(1);
       expect(ngService).to.have.been.calledWith(Filename + 'Service', filename);

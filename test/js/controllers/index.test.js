@@ -38,7 +38,7 @@ describe('The controllers index', function() {
     proxyquire(sutPath, stubs)();
   });
 
-  it('imports every controller into baseAngularApp', function() {
+  it('imports every controller into the app', function() {
     filenames.forEach(function(filename) {
       var normalizedFileName = filename[0].toUpperCase() + filename.slice(1);
       expect(ngController).to.have.been.calledWith(normalizedFileName + 'Controller', filename);

@@ -25,4 +25,23 @@ describe('MainController', function() {
   it('injects its dependencies', function() {
     expect(Sut.length).to.equal(Sut.$inject.length);
   });
+
+  describe('ConfigService.get()', function() {
+    it('is called immediately', function() {
+      expect(ConfigService.get).to.have.been.called;
+    });
+
+    it('sets $scope.message on success', function() {
+      var testMessage = 'Some Message';
+      ConfigService.get().then.callArgWith(0,{message: testMessage});
+      expect(scope.message).to.equal(testMessage);
+    });
+
+    it('sets $scope.message on error', function() {
+      ConfigService.get().then().catch.callArg(0);
+      expect(scope.message).to.equal('Failed to get cat facts!!');
+    });
+  });
+
+
 });
