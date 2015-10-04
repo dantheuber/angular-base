@@ -30,3 +30,8 @@ gulp package
 # run mocha and generate tests
 gulp testapp
 ```
+
+##Things to consider
+This example app use an open weather api to provide some example configuration calls, this would be the first thing you would want to update.
+
+It also uses materializecss to provide a nice looking basic app.
