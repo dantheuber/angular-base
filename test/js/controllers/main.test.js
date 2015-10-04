@@ -31,15 +31,20 @@ describe('MainController', function() {
       expect(ConfigService.get).to.have.been.called;
     });
 
-    it('sets $scope.message on success', function() {
-      var testMessage = 'Some Message';
-      ConfigService.get().then.callArgWith(0,{message: testMessage});
-      expect(scope.message).to.equal(testMessage);
+    it('sets $scope variables on success', function() {
+      var testData = {
+        name: 'some name',
+        weather: [{ description: 'some description' }]
+      };
+      ConfigService.get().then.callArgWith(0,testData);
+      expect(scope.location).to.equal(testData.name);
+      expect(scope.message).to.equal(testData.weather[0].description);
     });
 
     it('sets $scope.message on error', function() {
-      ConfigService.get().then().catch.callArg(0);
-      expect(scope.message).to.equal('Failed to get cat facts!!');
+      ConfigService.get().then().catch.callArgWith(0,'error');
+      expect(scope.location).to.equal('ERROR');
+      expect(scope.message).to.equal('error');
     });
   });
 

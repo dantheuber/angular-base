@@ -30,7 +30,7 @@ describe('ConfigService', function() {
   });
 
   it('calls api for config', function() {
-    expect($http.get).to.have.been.calledWith('/someapiurl');
+    expect($http.get).to.have.been.calledWith('http://api.openweathermap.org/data/2.5/weather?q=Budapest');
   });
 
   it('returns promise on success', function() {
