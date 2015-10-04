@@ -46,7 +46,7 @@ describe('init.js', function() {
   });
 
   it('calls url for config', function() {
-    expect($http.get).to.have.been.calledWith('someapiurl');
+    expect($http.get).to.have.been.calledWith('http://api.openweathermap.org/data/2.5/weather?q=Budapest');
   });
 
   it('Handles Success', function() {
@@ -81,7 +81,6 @@ describe('init.js', function() {
     it('Calls bootstraps the app', function() {
       readySpy.callArg(0);
       expect(readySpy).to.have.been.called;
-      // expect(stubs.angular.bootstrap).to.have.been.called;
     });
   });
 });

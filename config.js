@@ -18,6 +18,8 @@ System.config({
     "clean-css": "npm:clean-css@3.4.5",
     "json": "github:systemjs/plugin-json@0.1.0",
     "ngSmoothScroll": "github:d-oliveros/ngSmoothScroll@1.7.1",
+    "packageJson": "package.json!",
+    "systemjs/plugin-json": "github:systemjs/plugin-json@0.1.0",
     "traceur": "github:jmcriffey/bower-traceur@0.0.88",
     "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.88",
     "bower:angular-animate@1.4.7": {
