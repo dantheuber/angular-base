@@ -1,5 +1,5 @@
 #angular-base
-A simple project from which angular projects can be started.
+A simple project from which angular projects can be started. Provides a jump start on writing tests as this application comes shipped 100% covered.
 
 ##Install Dependencies
 This project uses `gulp` and `jspm`, as well as `compass` to make your development life easier. So you will need to install the necessary dependencies. Make sure you [have ruby installed](https://www.ruby-lang.org/en/documentation/installation/)  first, then use the following commands to install all other dependencies:
