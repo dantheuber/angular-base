@@ -24,12 +24,9 @@ Various `gulp` tasks are pre-configured, here are some of the useful commands:
 #compile dist and host it on port 5003 while watching for file updates
 gulp host
 
-#run tests and generate coverage report
-gulp test
-
 #compile minified distribution package
 gulp package
-```
 
-###TODO:
-- 100% coverage
+# run mocha and generate tests
+gulp testapp
+```

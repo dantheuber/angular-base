@@ -141,7 +141,7 @@ gulp.task('cleanCoverage', buildMethods.cleanCoverage);
 gulp.task('pre-test', buildMethods.pretest);
 
 // run tests
-gulp.task('test', ['cleanCoverage','pre-test'], buildMethods.test);
+gulp.task('testapp', ['cleanCoverage','pre-test'], buildMethods.test);
 /* end test methods */
 
 /* Build methods*/
